@@ -24,9 +24,11 @@ import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Singleton
 
+import javax.inject.Named
+
 @Singleton
 class OEMSettingsRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    @Named("settings") private val dataStore: DataStore<Preferences>
 ) : OEMSettingsRepository {
 
     private object PreferencesKeys {

@@ -28,6 +28,8 @@ import com.wakeup.app.core.service.HapticsControllerImpl
 import com.wakeup.app.domain.service.HapticsController
 import com.wakeup.app.core.service.AlarmLabelSuggestionsProviderImpl
 import com.wakeup.app.domain.service.AlarmLabelSuggestionsProvider
+import com.wakeup.app.domain.usecase.AlarmScheduler
+import com.wakeup.app.data.migration.DataStoreMigration
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -101,10 +103,26 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+    @Named("settings")
+    fun provideSettingsDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
-            produceFile = { context.preferencesDataStoreFile("wakeup_prefs") }
+            produceFile = { context.preferencesDataStoreFile("wakeup_settings_prefs") }
         )
+    }
+
+    @Provides
+    @Singleton
+    @Named("stats")
+    fun provideStatsDataStore(@ApplicationContext context: Context): DataStore<Preferences> {
+        return PreferenceDataStoreFactory.create(
+            produceFile = { context.preferencesDataStoreFile("wakeup_stats_prefs") }
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStore(@Named("settings") settingsDataStore: DataStore<Preferences>): DataStore<Preferences> {
+        return settingsDataStore
     }
 
     @Provides

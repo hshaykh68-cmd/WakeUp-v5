@@ -16,9 +16,11 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
+import javax.inject.Named
+
 @Singleton
 class SettingsRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    @Named("settings") private val dataStore: DataStore<Preferences>
 ) : SettingsRepository {
 
     private object PreferencesKeys {

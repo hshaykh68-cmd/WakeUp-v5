@@ -16,9 +16,11 @@ import java.time.ZoneId
 import javax.inject.Inject
 import javax.inject.Singleton
 
+import javax.inject.Named
+
 @Singleton
 class StatsRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    @Named("stats") private val dataStore: DataStore<Preferences>
 ) : StatsRepository {
 
     private object PreferencesKeys {
