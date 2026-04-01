@@ -232,8 +232,8 @@ fun CreateAlarmScreen(
                 }
             }
 
-            tfn( {
-            val showBatteryWarning by viewModel.showBatteryOptimizationWarning.collectAsState()
+            // Battery optimization warning
+            if (showBatteryWarning) {
                 val batteryHelper = remember { com.wakeup.app.core.util.BatteryOptimizationHelper(context) }
                 Card(
                     onClick = { 
