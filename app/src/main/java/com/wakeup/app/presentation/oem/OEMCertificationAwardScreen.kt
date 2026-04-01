@@ -413,6 +413,3 @@ private fun IconButton(onClick: () -> Unit, content: @Composable () -> Unit) {
         content()
     }
 }
-
-// Import needed
-import androidx.compose.foundation.clickable
