@@ -23,9 +23,6 @@ workflows:
         # Parallel builds
         ORG_GRADLE_PROJECT_android.enableJetifier: "true"
       
-    # Java version must be at workflow level, not inside environment
-    java_version: 17
-      
     triggering:
       events:
         - push
@@ -96,8 +93,6 @@ workflows:
         PACKAGE_NAME: "com.wakeup.app"
         GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx3g"
       
-    java_version: 17
-    
     triggering:
       events:
         - pull_request
@@ -131,8 +126,6 @@ workflows:
         PACKAGE_NAME: "com.wakeup.app"
         GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx4g"
       
-    java_version: 17
-    
     triggering:
       events:
         - push
