@@ -188,6 +188,9 @@ fun AppNavigation(
     }
 }
 
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
 @HiltViewModel
 class AppNavViewModel @Inject constructor(
     val hapticsController: HapticsController,
