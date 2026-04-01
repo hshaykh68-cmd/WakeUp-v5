@@ -42,6 +42,7 @@ workflows:
       - name: Verify Gradle Wrapper (Security Check)
         script: |
           echo "Verifying committed Gradle wrapper..."
+          chmod +x gradlew
           ./gradlew --version
           
       - name: Download Dependencies
