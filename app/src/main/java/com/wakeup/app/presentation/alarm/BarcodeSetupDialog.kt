@@ -281,7 +281,7 @@ private fun ScannerOverlayContent() {
     }
 }
 
-private sealed class ScanState {
-    data object Scanning : ScanState()
-    data object Detected : ScanState()
+private sealed class BarcodeSetupScanState {
+    data object Scanning : BarcodeSetupScanState()
+    data object Detected : BarcodeSetupScanState()
 }

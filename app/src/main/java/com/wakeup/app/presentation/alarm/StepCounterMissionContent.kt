@@ -85,7 +85,7 @@ fun StepCounterMissionContent(
                     hapticsController.performLightImpact()
 
                     // Pulse animation on milestone
-                    kotlinx.coroutines.launch {
+                    launch {
                         milestoneScale.animateTo(
                             targetValue = 1.2f,
                             animationSpec = spring(

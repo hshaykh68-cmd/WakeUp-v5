@@ -409,8 +409,8 @@ private fun InfoCard(
 /**
  * Scan state for UI updates
  */
-private sealed class ScanState {
-    data object Scanning : ScanState()
-    data object Success : ScanState()
-    data class Error(val message: String) : ScanState()
+private sealed class BarcodeScanState {
+    data object Scanning : BarcodeScanState()
+    data object Success : BarcodeScanState()
+    data class Error(val message: String) : BarcodeScanState()
 }
