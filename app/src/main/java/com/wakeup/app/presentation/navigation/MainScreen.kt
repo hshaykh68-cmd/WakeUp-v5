@@ -57,6 +57,7 @@ import com.wakeup.app.presentation.alarms.AlarmListScreen
 import com.wakeup.app.presentation.home.HomeScreen
 import com.wakeup.app.presentation.settings.SettingsScreen
 import com.wakeup.app.presentation.stats.StatsScreen
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @Composable
@@ -152,9 +153,6 @@ private fun BannerAdView(adMobManager: AdMobManager) {
         modifier = Modifier.fillMaxWidth()
     )
 }
-
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(

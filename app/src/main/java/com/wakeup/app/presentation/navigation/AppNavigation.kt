@@ -26,9 +26,10 @@ import com.wakeup.app.presentation.alarm.MissionScreen
 import com.wakeup.app.presentation.alarm.WakeSuccessScreen
 import com.wakeup.app.presentation.premium.PremiumScreen
 import com.wakeup.app.presentation.sleep.SleepSoundsScreen
+import javax.inject.Inject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @Composable
 fun AppNavigation(
@@ -187,9 +188,6 @@ fun AppNavigation(
         }
     }
 }
-
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 
 @HiltViewModel
 class AppNavViewModel @Inject constructor(
