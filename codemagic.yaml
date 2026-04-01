@@ -1,0 +1,145 @@
+workflows:
+  # Debug build workflow - optimized for development
+  debug:
+    name: Debug Build
+    instance_type: mac_mini_m2
+    max_build_duration: 45
+    
+    # Cache Gradle dependencies and wrapper for faster builds
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.gradle/wrapper
+        - $CM_BUILD_DIR/.gradle
+        - $CM_BUILD_DIR/app/build/intermediates
+    
+    environment:
+      groups:
+        - default
+      vars:
+        PACKAGE_NAME: "com.wakeup.app"
+        # Disable Gradle daemon for CI (saves memory)
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.configureondemand=true"
+        # Parallel builds
+        ORG_GRADLE_PROJECT_android.enableJetifier: "true"
+      java_version: 17
+      
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+        - pattern: develop
+          include: true
+          source: true
+        - pattern: feature/*
+          include: true
+          source: true
+    
+    scripts:
+      - name: Verify Gradle Wrapper (Security Check)
+        script: |
+          echo "Verifying committed Gradle wrapper..."
+          ./gradlew --version
+          
+      - name: Download Dependencies
+        script: |
+          ./gradlew dependencies --no-daemon --configure-on-demand
+          
+      - name: Run KtLint
+        script: |
+          ./gradlew ktlintCheck --no-daemon --continue || true
+          
+      - name: Run Lint
+        script: |
+          ./gradlew lintDebug --no-daemon --continue || true
+          
+      - name: Run Unit Tests
+        script: |
+          ./gradlew testDebugUnitTest --no-daemon --tests "*Test" --continue
+          
+      - name: Build Debug APK
+        script: |
+          ./gradlew assembleDebug --no-daemon --parallel --build-cache
+          
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+      - app/build/reports/lint-results-debug.html
+      - app/build/reports/tests/testDebugUnitTest/
+      
+    publishing:
+      email:
+        recipients:
+          - developer@example.com
+        notify:
+          success: true
+          failure: true
+
+  # PR validation workflow - fast feedback for pull requests
+  pr-validation:
+    name: PR Validation
+    instance_type: mac_mini_m1  # Cheaper for quick checks
+    max_build_duration: 30
+    
+    cache:
+      cache_paths:
+        - $HOME/.gradle/caches
+        - $HOME/.gradle/wrapper
+    
+    environment:
+      vars:
+        PACKAGE_NAME: "com.wakeup.app"
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx3g"
+      java_version: 17
+    
+    triggering:
+      events:
+        - pull_request
+      branch_patterns:
+        - pattern: "*"
+          include: true
+          source: true
+    
+    scripts:
+      - name: Quick Lint & Build
+        script: |
+          ./gradlew ktlintCheck lintDebug --no-daemon --continue || true
+          
+      - name: Unit Tests
+        script: |
+          ./gradlew testDebugUnitTest --no-daemon
+          
+    artifacts:
+      - app/build/reports/lint-results-debug.html
+      - app/build/reports/tests/testDebugUnitTest/
+
+  # Clean build workflow - for testing from scratch
+  clean-build:
+    name: Clean Debug Build (No Cache)
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    
+    # No cache - tests clean build
+    environment:
+      vars:
+        PACKAGE_NAME: "com.wakeup.app"
+        GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx4g"
+      java_version: 17
+    
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+    
+    scripts:
+      - name: Clean Build
+        script: |
+          ./gradlew clean assembleDebug --no-daemon
+          
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
