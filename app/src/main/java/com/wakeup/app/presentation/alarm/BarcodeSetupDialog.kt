@@ -45,7 +45,7 @@ fun BarcodeSetupDialog(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    var scanState by remember { mutableStateOf<ScanState>(ScanState.Scanning) }
+    var scanState by remember { mutableStateOf<BarcodeSetupScanState>(BarcodeSetupScanState.Scanning) }
     var detectedBarcode by remember { mutableStateOf<Pair<String, Int>?>(null) }
 
     val barcodeScanner = remember { BarcodeScanning.getClient() }
@@ -93,15 +93,15 @@ fun BarcodeSetupDialog(
                         cameraController.startCamera(
                             lifecycleOwner = lifecycleOwner,
                             previewView = previewView,
-                            enableAnalysis = scanState == ScanState.Scanning,
+                            enableAnalysis = scanState == BarcodeSetupScanState.Scanning,
                             analysisListener = { imageProxy ->
                                 processBarcodeForSetup(
                                     imageProxy = imageProxy,
                                     barcodeScanner = barcodeScanner,
                                     onBarcodeDetected = { barcode, format ->
-                                        if (scanState == ScanState.Scanning) {
+                                        if (scanState == BarcodeSetupScanState.Scanning) {
                                             detectedBarcode = barcode to format
-                                            scanState = ScanState.Detected
+                                            scanState = BarcodeSetupScanState.Detected
                                             onBarcodeScanned(barcode, format)
                                         }
                                     }
@@ -125,7 +125,7 @@ fun BarcodeSetupDialog(
             ScannerOverlayContent()
 
             // Success overlay
-            if (scanState == ScanState.Detected) {
+            if (scanState == BarcodeSetupScanState.Detected) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()

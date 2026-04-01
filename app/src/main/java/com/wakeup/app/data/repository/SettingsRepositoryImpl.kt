@@ -10,6 +10,7 @@ import com.wakeup.app.domain.model.PremiumType
 import com.wakeup.app.domain.model.MissionDifficulty
 import com.wakeup.app.domain.model.MissionType
 import com.wakeup.app.domain.repository.SettingsRepository
+import com.wakeup.app.domain.repository.ThemeMode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map

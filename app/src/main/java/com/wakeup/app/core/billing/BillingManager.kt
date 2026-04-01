@@ -93,11 +93,7 @@ class BillingManager @Inject constructor(
 
         billingClient = BillingClient.newBuilder(context)
             .setListener(purchasesUpdatedListener)
-            .enablePendingPurchases(
-                PendingPurchasesParams.newBuilder()
-                    .enableOneTimeProducts()
-                    .build()
-            )
+            .enablePendingPurchases()
             .build()
 
         billingClient?.startConnection(object : BillingClientStateListener {

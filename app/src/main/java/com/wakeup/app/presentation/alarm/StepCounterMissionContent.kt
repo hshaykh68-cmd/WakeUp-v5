@@ -28,6 +28,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,6 +65,7 @@ fun StepCounterMissionContent(
     var isSensorAvailable by remember { mutableStateOf(true) }
 
     // Animation for step milestone
+    val coroutineScope = rememberCoroutineScope()
     val milestoneScale = remember { Animatable(1f) }
 
     // Check sensor availability
@@ -83,7 +85,7 @@ fun StepCounterMissionContent(
                 // Haptic feedback every 10 steps
                 if (stepDetector.shouldTriggerHaptic()) {
                     hapticsController.performLightImpact()
-
+coroutineScope.
                     // Pulse animation on milestone
                     launch {
                         milestoneScale.animateTo(

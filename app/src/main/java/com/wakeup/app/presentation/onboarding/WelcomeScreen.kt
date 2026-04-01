@@ -289,7 +289,7 @@ private fun ShimmerButton(
             .height(56.dp)
             .clip(RoundedCornerShape(16.dp))
             .background(WakeUpColors.iosBlue)
-            .clickable { onClick() },
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
         // Shimmer overlay
@@ -319,7 +319,3 @@ private fun ShimmerButton(
         }
     }
 }
-
-private fun Modifier.clickable(onClick: () -> Unit): Modifier = this.then(
-    androidx.compose.foundation.clickable(onClick = onClick)
-)

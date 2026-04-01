@@ -65,7 +65,7 @@ fun BarcodeMissionContent(
     val expectedBarcode = missionData.barcodeValue ?: ""
     val expectedFormat = missionData.metadata["barcodeFormat"]?.toIntOrNull() ?: -1
 
-    var scanState by remember { mutableStateOf<ScanState>(ScanState.Scanning) }
+    var scanState by remember { mutableStateOf<BarcodeScanState>(BarcodeScanState.Scanning) }
     var lastScannedValue by remember { mutableStateOf("") }
     var scanAttempts by remember { mutableStateOf(0) }
 
@@ -129,7 +129,7 @@ fun BarcodeMissionContent(
                         cameraController.startCamera(
                             lifecycleOwner = lifecycleOwner,
                             previewView = previewView,
-                            enableAnalysis = scanState == ScanState.Scanning,
+                            enableAnalysis = scanState == BarcodeScanState.Scanning,
                             analysisListener = { imageProxy ->
                                 processBarcodeImage(
                                     imageProxy = imageProxy,
@@ -139,13 +139,13 @@ fun BarcodeMissionContent(
                                     onScanResult = { success, value ->
                                         lastScannedValue = value
                                         if (success) {
-                                            scanState = ScanState.Success
+                                            scanState = BarcodeScanState.Success
                                             onMissionComplete(true)
                                         } else {
                                             scanAttempts++
                                             if (scanAttempts >= 3) {
                                                 // After 3 failed attempts, show error but keep trying
-                                                scanState = ScanState.Error("Barcode doesn't match. Keep trying...")
+                                                scanState = BarcodeScanState.Error("Barcode doesn't match. Keep trying...")
                                             }
                                         }
                                     }
@@ -178,7 +178,7 @@ fun BarcodeMissionContent(
 
             // Status indicator
             when (scanState) {
-                is ScanState.Success -> {
+                is BarcodeScanState.Success -> {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -193,7 +193,7 @@ fun BarcodeMissionContent(
                         )
                     }
                 }
-                is ScanState.Error -> {
+                is BarcodeScanState.Error -> {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -204,7 +204,7 @@ fun BarcodeMissionContent(
                             .padding(12.dp)
                     ) {
                         Text(
-                            text = (scanState as ScanState.Error).message,
+                            text = (scanState as BarcodeScanState.Error).message,
                             color = Color.White,
                             fontSize = 14.sp,
                             textAlign = TextAlign.Center
@@ -214,7 +214,7 @@ fun BarcodeMissionContent(
                     // Auto-clear error after 2 seconds
                     LaunchedEffect(scanState) {
                         delay(2000)
-                        scanState = ScanState.Scanning
+                        scanState = BarcodeScanState.Scanning
                     }
                 }
                 else -> { /* Scanning - no overlay */ }

@@ -22,6 +22,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Card
@@ -93,6 +94,7 @@ fun CreateAlarmScreen(
     val alarmCount by viewModel.alarmCount.collectAsState()
     val canCreateAlarm by viewModel.canCreateAlarm.collectAsState()
     val useIOSStyleTimePicker by viewModel.useIOSStyleTimePicker.collectAsState()
+    val showBatteryWarning by viewModel.showBatteryOptimizationWarning.collectAsState()
     val context = androidx.compose.ui.platform.LocalContext.current
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -230,8 +232,8 @@ fun CreateAlarmScreen(
                 }
             }
 
-            // Battery optimization warning
-            if (showBatteryWarning) {
+            tfn( {
+            val showBatteryWarning by viewModel.showBatteryOptimizationWarning.collectAsState()
                 val batteryHelper = remember { com.wakeup.app.core.util.BatteryOptimizationHelper(context) }
                 Card(
                     onClick = { 

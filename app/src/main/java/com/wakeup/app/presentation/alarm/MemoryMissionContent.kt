@@ -68,7 +68,7 @@ internal fun MemoryMissionContent(
     onPatternComplete: (Boolean) -> Unit
 ) {
     val context = LocalContext.current
-    val soundManager = remember { SoundManager(context) }
+    val soundManager = remember { MissionSoundManager(context) }
     val scope = rememberCoroutineScope()
     val targetPattern = missionData.pattern
     var hasFailed by remember { mutableStateOf(false) }
@@ -391,7 +391,7 @@ private fun AnimatedNumberButton(
     scale: Animatable<Float, *>,
     alpha: Animatable<Float, *>,
     haptics: HapticsController,
-    soundManager: SoundManager? = null,
+    soundManager: MissionSoundManager? = null,
     onClick: () -> Unit
 ) {
     val isDisabled = patternInput.size >= targetPattern.size
@@ -467,7 +467,7 @@ private fun validateAndPlayPattern(
     setFailed: (Boolean) -> Unit,
     onPatternComplete: (Boolean) -> Unit,
     haptics: HapticsController,
-    soundManager: SoundManager? = null
+    soundManager: MissionSoundManager? = null
 ) {
     if (strictMode) {
         // Check if current input matches target so far

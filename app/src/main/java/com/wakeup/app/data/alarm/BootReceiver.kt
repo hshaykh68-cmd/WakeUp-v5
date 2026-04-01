@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import com.wakeup.app.data.alarm.OEMBroadcastReceivers
 import com.wakeup.app.domain.usecase.RescheduleAllAlarmsUseCase
+import com.wakeup.app.domain.usecase.GetEnabledAlarmsUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +18,9 @@ class BootReceiver : BroadcastReceiver() {
 
     @Inject
     lateinit var rescheduleAllAlarmsUseCase: RescheduleAllAlarmsUseCase
+    
+    @Inject
+    lateinit var getEnabledAlarmsUseCase: GetEnabledAlarmsUseCase
     
     @Inject
     lateinit var oemAlarmScheduler: OEMAlarmScheduler
@@ -27,7 +32,7 @@ class BootReceiver : BroadcastReceiver() {
             
             CoroutineScope(Dispatchers.IO).launch {
                 // First try OEM-aware scheduling
-                val alarms = rescheduleAllAlarmsUseCase.getAllAlarms()
+                val alarms = getEnabledAlarmsUseCase().first()
                 val results = oemAlarmScheduler.rescheduleAllWithOEM(alarms)
                 
                 // Log results

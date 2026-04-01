@@ -218,6 +218,7 @@ object MissionFactory {
             // with validation handled within those composables
             MissionType.PHOTO -> throw IllegalArgumentException("PHOTO mission uses PhotoMissionContent directly, not MissionChallenge")
             MissionType.BARCODE -> throw IllegalArgumentException("BARCODE mission uses BarcodeMissionContent directly, not MissionChallenge")
+            else -> throw IllegalArgumentException("$type mission not supported by MissionChallenge")
         }
     }
 }

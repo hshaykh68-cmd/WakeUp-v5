@@ -11,6 +11,7 @@ import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -270,7 +271,7 @@ private fun BarcodeScanningContent(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    var scanState by remember { mutableStateOf<ScanState>(ScanState.Scanning) }
+    var scanState by remember { mutableStateOf<EnhancedBarcodeScanState>(EnhancedBarcodeScanState.Scanning) }
     var detectedBarcode by remember { mutableStateOf<Pair<String, Int>?>(null) }
 
     val barcodeScanner = remember { BarcodeScanning.getClient() }
@@ -343,15 +344,15 @@ private fun BarcodeScanningContent(
                         cameraController.startCamera(
                             lifecycleOwner = lifecycleOwner,
                             previewView = previewView,
-                            enableAnalysis = scanState == ScanState.Scanning,
+                            enableAnalysis = scanState == EnhancedBarcodeScanState.Scanning,
                             analysisListener = { imageProxy ->
                                 processBarcode(
                                     imageProxy = imageProxy,
                                     barcodeScanner = barcodeScanner,
                                     onBarcodeDetected = { barcode, format ->
-                                        if (scanState == ScanState.Scanning) {
+                                        if (scanState == EnhancedBarcodeScanState.Scanning) {
                                             detectedBarcode = barcode to format
-                                            scanState = ScanState.Detected
+                                            scanState = EnhancedBarcodeScanState.Detected
                                             onBarcodeScanned(barcode, format)
                                         }
                                     }
@@ -375,7 +376,7 @@ private fun BarcodeScanningContent(
             GuidedScannerOverlay(template = template)
 
             // Success overlay
-            if (scanState == ScanState.Detected) {
+            if (scanState == EnhancedBarcodeScanState.Detected) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
