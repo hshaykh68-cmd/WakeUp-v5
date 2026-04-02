@@ -21,8 +21,8 @@ class SplashViewModel @Inject constructor(
     private val getSettingsUseCase: GetSettingsUseCase
 ) : ViewModel() {
 
-    val isOnboardingCompleted: Flow<Boolean> = flow {
-        emit(getSettingsUseCase.isOnboardingCompleted())
+    suspend fun isOnboardingCompleted(): Boolean {
+        return getSettingsUseCase.isOnboardingCompleted()
     }
 
     fun hasPermissions(): Boolean {

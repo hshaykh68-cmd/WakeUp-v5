@@ -237,7 +237,7 @@ class SmartWakeService : Service() {
     }
 
     private fun isActive(): Boolean {
-        return isMonitoring || serviceScope.isActive
+        return isMonitoring || !serviceScope.isCancelled
     }
 
     private fun createNotificationChannel() {

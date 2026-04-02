@@ -34,6 +34,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -309,7 +311,7 @@ private fun processBarcodeImage(
 }
 
 /**
- * Scanner overlay with corner brackets
+ * Scanner overlay with corner brackets using drawBehind
  */
 @Composable
 private fun ScannerOverlay() {
@@ -318,48 +320,96 @@ private fun ScannerOverlay() {
     val cornerThickness = 3.dp
 
     Box(modifier = Modifier.fillMaxSize()) {
-        // Top left
+        // Top left corner
         Box(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .size(cornerSize)
-                .border(
-                    start = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor),
-                    top = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor)
-                )
+                .drawBehind {
+                    // Draw top border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(0f, cornerThickness.value / 2),
+                        end = Offset(size.width * 0.7f, cornerThickness.value / 2),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                    // Draw left border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(cornerThickness.value / 2, 0f),
+                        end = Offset(cornerThickness.value / 2, size.height * 0.7f),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                }
         )
 
-        // Top right
+        // Top right corner
         Box(
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .size(cornerSize)
-                .border(
-                    top = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor),
-                    end = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor)
-                )
+                .drawBehind {
+                    // Draw top border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(size.width * 0.3f, cornerThickness.value / 2),
+                        end = Offset(size.width, cornerThickness.value / 2),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                    // Draw right border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(size.width - cornerThickness.value / 2, 0f),
+                        end = Offset(size.width - cornerThickness.value / 2, size.height * 0.7f),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                }
         )
 
-        // Bottom left
+        // Bottom left corner
         Box(
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .size(cornerSize)
-                .border(
-                    start = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor),
-                    bottom = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor)
-                )
+                .drawBehind {
+                    // Draw bottom border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(0f, size.height - cornerThickness.value / 2),
+                        end = Offset(size.width * 0.7f, size.height - cornerThickness.value / 2),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                    // Draw left border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(cornerThickness.value / 2, size.height * 0.3f),
+                        end = Offset(cornerThickness.value / 2, size.height),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                }
         )
 
-        // Bottom right
+        // Bottom right corner
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .size(cornerSize)
-                .border(
-                    end = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor),
-                    bottom = androidx.compose.foundation.BorderStroke(cornerThickness, cornerColor)
-                )
+                .drawBehind {
+                    // Draw bottom border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(size.width * 0.3f, size.height - cornerThickness.value / 2),
+                        end = Offset(size.width, size.height - cornerThickness.value / 2),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                    // Draw right border
+                    drawLine(
+                        color = cornerColor,
+                        start = Offset(size.width - cornerThickness.value / 2, size.height * 0.3f),
+                        end = Offset(size.width - cornerThickness.value / 2, size.height),
+                        strokeWidth = cornerThickness.toPx()
+                    )
+                }
         )
 
         // Center reticle

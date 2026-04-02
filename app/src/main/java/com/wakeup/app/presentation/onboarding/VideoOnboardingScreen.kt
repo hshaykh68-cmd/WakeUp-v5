@@ -714,8 +714,8 @@ private fun FlowRow(
         content = content,
         modifier = modifier
     ) { measurables, constraints ->
-        val hGapPx = 12.dp.roundToPx()
-        val vGapPx = 12.dp.roundToPx()
+        val hGapPx = with(density) { 12.dp.roundToPx() }
+        val vGapPx = with(density) { 12.dp.roundToPx() }
         val rows = mutableListOf<List<androidx.compose.ui.layout.Placeable>>()
         val rowWidths = mutableListOf<Int>()
         val rowHeights = mutableListOf<Int>()

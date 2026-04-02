@@ -57,6 +57,11 @@ interface OEMDetector {
      * Detect ColorOS version for OPPO/OnePlus/Realme devices (if applicable).
      */
     fun detectColorOSVersion(): String?
+
+    /**
+     * Get a detailed device profile for analytics/debugging.
+     */
+    fun getDeviceProfile(): DeviceProfile
 }
 
 /**

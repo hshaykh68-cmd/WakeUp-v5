@@ -47,7 +47,7 @@ class OEMSetupViewModel @Inject constructor(
         loadOEMSetup()
     }
 
-    private fun loadOEMSetup() {
+    internal fun loadOEMSetup() {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
             

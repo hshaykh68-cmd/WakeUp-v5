@@ -65,7 +65,7 @@ fun StepCounterMissionContent(
     var isSensorAvailable by remember { mutableStateOf(true) }
 
     // Animation for step milestone
-    val coroutineScope = rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
     val milestoneScale = remember { Animatable(1f) }
 
     // Check sensor availability
@@ -87,7 +87,7 @@ fun StepCounterMissionContent(
                     hapticsController.performLightImpact()
 
                     // Pulse animation on milestone
-                    coroutineScope.launch {
+                    scope.launch {
                         milestoneScale.animateTo(
                             targetValue = 1.2f,
                             animationSpec = spring(

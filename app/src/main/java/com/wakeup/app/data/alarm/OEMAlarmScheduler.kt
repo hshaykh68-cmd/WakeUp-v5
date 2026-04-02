@@ -125,7 +125,7 @@ class OEMAlarmScheduler @Inject constructor(
                 )
             }
 
-            SchedulingResult(
+            return SchedulingResult(
                 success = true,
                 strategyUsed = SchedulingStrategy.REDUNDANT_WAKELOCK,
                 primaryAlarmId = alarm.pendingIntentId,
@@ -133,7 +133,7 @@ class OEMAlarmScheduler @Inject constructor(
             )
         } catch (e: Exception) {
             // Backup alarm failed, but primary succeeded
-            SchedulingResult(
+            return SchedulingResult(
                 success = true, // Still considered success
                 strategyUsed = SchedulingStrategy.REDUNDANT_WAKELOCK,
                 primaryAlarmId = alarm.pendingIntentId,
@@ -213,14 +213,14 @@ class OEMAlarmScheduler @Inject constructor(
                 backupPendingIntent
             )
 
-            SchedulingResult(
+            return SchedulingResult(
                 success = true,
                 strategyUsed = SchedulingStrategy.DUAL_ALARM,
                 primaryAlarmId = alarm.pendingIntentId,
                 backupAlarmId = backupAlarmId
             )
         } catch (e: Exception) {
-            SchedulingResult(
+            return SchedulingResult(
                 success = true, // Primary succeeded
                 strategyUsed = SchedulingStrategy.DUAL_ALARM,
                 primaryAlarmId = alarm.pendingIntentId,

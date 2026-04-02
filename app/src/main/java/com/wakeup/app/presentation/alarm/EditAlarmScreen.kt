@@ -17,7 +17,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -52,6 +53,7 @@ import com.wakeup.app.core.theme.WakeUpColors
 import com.wakeup.app.domain.model.Alarm
 import com.wakeup.app.domain.model.MissionDifficulty
 import com.wakeup.app.domain.model.MissionType
+import com.wakeup.app.domain.service.HapticsController
 import com.wakeup.app.presentation.components.IOSTimePicker
 import java.time.DayOfWeek
 import java.time.LocalTime
@@ -62,6 +64,7 @@ import java.time.format.DateTimeFormatter
 fun EditAlarmScreen(
     alarmId: String,
     viewModel: EditAlarmViewModel = hiltViewModel(),
+    hapticsController: HapticsController,
     onNavigateBack: () -> Unit
 ) {
     val alarm by viewModel.alarm.collectAsState()
@@ -73,6 +76,7 @@ fun EditAlarmScreen(
     alarm?.let { currentAlarm ->
         EditAlarmContent(
             alarm = currentAlarm,
+            hapticsController = hapticsController,
             onSave = { updatedAlarm ->
                 viewModel.updateAlarm(updatedAlarm)
                 onNavigateBack()
@@ -90,6 +94,7 @@ fun EditAlarmScreen(
 @Composable
 private fun EditAlarmContent(
     alarm: Alarm,
+    hapticsController: HapticsController,
     onSave: (Alarm) -> Unit,
     onDelete: () -> Unit,
     onNavigateBack: () -> Unit

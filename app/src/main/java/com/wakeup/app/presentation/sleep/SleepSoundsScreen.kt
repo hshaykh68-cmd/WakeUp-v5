@@ -431,7 +431,7 @@ private fun PlayPauseButton(
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationApi::class)
 @Composable
 private fun TimerSelector(
     selectedOption: SleepTimerOption,
