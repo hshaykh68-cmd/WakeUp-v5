@@ -44,6 +44,7 @@ import com.wakeup.app.core.theme.WakeUpColors
 import com.wakeup.app.domain.service.HapticsController
 import com.wakeup.app.core.util.StepDetector
 import com.wakeup.app.domain.model.MissionDifficulty
+import kotlinx.coroutines.launch
 
 /**
  * Composable for Step Counter mission.

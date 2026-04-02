@@ -8,6 +8,7 @@ import androidx.camera.core.FocusMeteringAction
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -111,15 +112,12 @@ class CameraXController(private val context: Context) {
             // Unbind all use cases before rebinding
             provider.unbindAll()
 
-            // Bind use cases to camera
-            val useCases = mutableListOf(preview!!)
-            imageAnalysis?.let { useCases.add(it) }
-            imageCapture?.let { useCases.add(it) }
-
+    // Bind use cases to camera - use vararg spread operator correctly
             camera = provider.bindToLifecycle(
                 lifecycleOwner,
                 cameraSelector,
-                *useCases.toTypedArray()
+                preview!!,
+                *(listOfNotNull(imageAnalysis, imageCapture).toTypedArray())
             )
 
             // Set up tap to focus

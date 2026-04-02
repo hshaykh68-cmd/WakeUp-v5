@@ -345,7 +345,7 @@ private fun BarcodeScanningContent(
                             lifecycleOwner = lifecycleOwner,
                             previewView = previewView,
                             enableAnalysis = scanState == EnhancedBarcodeScanState.Scanning,
-                            analysisListener = { imageProxy ->
+                            analysisListener = { imageProxy: ImageProxy ->
                                 processBarcode(
                                     imageProxy = imageProxy,
                                     barcodeScanner = barcodeScanner,

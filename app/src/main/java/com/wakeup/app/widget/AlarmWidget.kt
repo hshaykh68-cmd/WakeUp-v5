@@ -10,11 +10,11 @@ import androidx.glance.GlanceTheme
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.action.ActionParameters
-import androidx.glance.action.actionRunCallback
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.action.ActionCallback
+import androidx.glance.appwidget.action.actionParametersOf
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
@@ -149,7 +149,7 @@ private fun AlarmWidgetWithAlarm(alarm: Alarm) {
                     .cornerRadius(16.dp)
                     .clickable(
                         actionRunCallback<ToggleAlarmAction>(
-                            parameters = ActionParameters(
+                            parameters = actionParametersOf(
                                 ToggleAlarmAction.ALARM_ID_KEY to alarm.id
                             )
                         )
@@ -161,7 +161,7 @@ private fun AlarmWidgetWithAlarm(alarm: Alarm) {
                     text = if (alarm.isEnabled) "ON" else "OFF",
                     style = TextStyle(
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Medium,
                         color = ColorProvider(
                             if (alarm.isEnabled) GlanceTheme.colors.onPrimary 
                             else GlanceTheme.colors.onSurfaceVariant
@@ -237,7 +237,7 @@ private fun AlarmWidgetEmpty() {
                     text = "Add Alarm",
                     style = TextStyle(
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
+                        fontWeight = FontWeight.Medium,
                         color = ColorProvider(GlanceTheme.colors.onPrimary)
                     )
                 )

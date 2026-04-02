@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -96,7 +97,7 @@ fun BarcodeSetupDialog(
                             lifecycleOwner = lifecycleOwner,
                             previewView = previewView,
                             enableAnalysis = scanState == BarcodeSetupScanState.Scanning,
-                            analysisListener = { imageProxy ->
+                            analysisListener = { imageProxy: ImageProxy ->
                                 processBarcodeForSetup(
                                     imageProxy = imageProxy,
                                     barcodeScanner = barcodeScanner,
@@ -135,7 +136,7 @@ fun BarcodeSetupDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
+                        Icon(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = "Success",
                         tint = WakeUpColors.iosGreen,

@@ -44,12 +44,8 @@ import com.patrykandpatrick.vico.compose.chart.Chart
 import com.patrykandpatrick.vico.compose.chart.column.columnChart
 import com.patrykandpatrick.vico.compose.chart.line.lineChart
 import com.patrykandpatrick.vico.compose.component.lineComponent
-import com.patrykandpatrick.vico.core.axis.AxisPosition
-import com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter
-import com.patrykandpatrick.vico.core.chart.layout.HorizontalLayout
-import com.patrykandpatrick.vico.core.chart.values.AxisValuesOverrider
+import com.patrykandpatrick.vico.core.chart.line.LineSpec
 import com.patrykandpatrick.vico.core.component.shape.Shapes
-import com.patrykandpatrick.vico.core.component.shape.cornered.Corner
 import com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
 import com.patrykandpatrick.vico.core.entry.FloatEntry
 import com.patrykandpatrick.vico.core.entry.entryModelOf
@@ -455,14 +451,13 @@ private fun WeeklyStreakChart(weeklySuccess: List<Boolean>) {
     ChartCard(title = "Weekly Streak") {
         Chart(
             chart = columnChart(
-                columns = { index ->
-                    val isSuccess = weeklySuccess.getOrNull(index) ?: false
+                columns = weeklySuccess.map { isSuccess ->
                     lineComponent(
                         color = if (isSuccess) WakeUpColors.iosGreen else WakeUpColors.iosGray.copy(
                             alpha = 0.3f
                         ),
                         thickness = 24.dp,
-                        shape = Shapes.roundedCornerShape(Corner.FullyRounded)
+                        shape = Shapes.roundedCornerShape(50)
                     )
                 },
                 axisValuesOverrider = AxisValuesOverrider.fixed(
@@ -471,9 +466,6 @@ private fun WeeklyStreakChart(weeklySuccess: List<Boolean>) {
                 )
             ),
             chartModelProducer = ChartEntryModelProducer(),
-            chartModelProducerRegistration = { producer ->
-                producer.setEntries(chartEntryModel.entries)
-            },
             startAxis = startAxis(
                 valueFormatter = { _, _ -> "" },
                 tickLength = 0.dp,
@@ -486,10 +478,7 @@ private fun WeeklyStreakChart(weeklySuccess: List<Boolean>) {
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp),
-            horizontalLayout = HorizontalLayout.FullWidth(
-                unboundedParentWidth = true
-            )
+                .height(120.dp)
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -566,10 +555,8 @@ private fun MonthlyTrendChart(history: List<WakeHistory>) {
 
         Chart(
             chart = columnChart(
-                columns = { index ->
-                    val dayHistory = daysInMonth.getOrNull(index)?.let { date ->
-                        history.filter { it.alarmTime.toLocalDate() == date }
-                    } ?: emptyList()
+                columns = daysInMonth.map { date ->
+                    val dayHistory = history.filter { it.alarmTime.toLocalDate() == date }
                     val hasSuccess = dayHistory.any { it.success }
                     val hasAttempt = dayHistory.isNotEmpty()
 
@@ -582,7 +569,7 @@ private fun MonthlyTrendChart(history: List<WakeHistory>) {
                     lineComponent(
                         color = color,
                         thickness = 8.dp,
-                        shape = Shapes.roundedCornerShape(Corner.FullyRounded)
+                        shape = Shapes.roundedCornerShape(50)
                     )
                 },
                 axisValuesOverrider = AxisValuesOverrider.fixed(
@@ -592,9 +579,6 @@ private fun MonthlyTrendChart(history: List<WakeHistory>) {
                 spacing = 2.dp
             ),
             chartModelProducer = ChartEntryModelProducer(),
-            chartModelProducerRegistration = { producer ->
-                producer.setEntries(chartEntryModel.entries)
-            },
             startAxis = startAxis(
                 valueFormatter = { _, _ -> "" },
                 tickLength = 0.dp,
@@ -607,10 +591,7 @@ private fun MonthlyTrendChart(history: List<WakeHistory>) {
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(100.dp),
-            horizontalLayout = HorizontalLayout.FullWidth(
-                unboundedParentWidth = true
-            )
+                .height(100.dp)
         )
     }
 }
@@ -654,12 +635,11 @@ private fun AllTimeChart(history: List<WakeHistory>) {
         Chart(
             chart = lineChart(
                 lines = listOf(
-                    com.patrykandpatrick.vico.core.chart.line.LineSpec(
-                        lineColor = WakeUpColors.iosPurple.value.toInt(),
+                    LineSpec(
+                        lineColor = WakeUpColors.iosPurple,
                         lineThickness = 3.dp,
                         pointSize = 6.dp,
-                        pointColor = WakeUpColors.iosGreen.value.toInt(),
-                        lineBackgroundShader = null
+                        pointColor = WakeUpColors.iosGreen
                     )
                 ),
                 axisValuesOverrider = AxisValuesOverrider.fixed(
@@ -668,9 +648,6 @@ private fun AllTimeChart(history: List<WakeHistory>) {
                 )
             ),
             chartModelProducer = ChartEntryModelProducer(),
-            chartModelProducerRegistration = { producer ->
-                producer.setEntries(chartEntryModel.entries)
-            },
             startAxis = startAxis(
                 valueFormatter = { value, _ ->
                     "${value.toInt()}%"
@@ -688,8 +665,7 @@ private fun AllTimeChart(history: List<WakeHistory>) {
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp),
-            horizontalLayout = HorizontalLayout.FullWidth()
+                .height(150.dp)
         )
     }
 }
@@ -919,12 +895,11 @@ private fun WakeUpTimeChart(
         Chart(
             chart = lineChart(
                 lines = listOf(
-                    com.patrykandpatrick.vico.core.chart.line.LineSpec(
-                        lineColor = WakeUpColors.iosBlue.value.toInt(),
+                    LineSpec(
+                        lineColor = WakeUpColors.iosBlue,
                         lineThickness = 3.dp,
                         pointSize = if (timeRange == StatsTimeRange.ALL_TIME) 4.dp else 8.dp,
-                        pointColor = WakeUpColors.iosBlue.value.toInt(),
-                        lineBackgroundShader = null
+                        pointColor = WakeUpColors.iosBlue
                     )
                 ),
                 axisValuesOverrider = AxisValuesOverrider.fixed(
@@ -933,9 +908,6 @@ private fun WakeUpTimeChart(
                 )
             ),
             chartModelProducer = ChartEntryModelProducer(),
-            chartModelProducerRegistration = { producer ->
-                producer.setEntries(chartEntryModel.entries)
-            },
             startAxis = startAxis(
                 valueFormatter = { value, _ ->
                     val hour = value.toInt()
@@ -956,8 +928,7 @@ private fun WakeUpTimeChart(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(150.dp),
-            horizontalLayout = HorizontalLayout.FullWidth()
+                .height(150.dp)
         )
     }
 }

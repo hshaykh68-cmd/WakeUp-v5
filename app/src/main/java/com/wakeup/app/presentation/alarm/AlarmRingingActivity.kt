@@ -224,6 +224,7 @@ fun AlarmRingingScreen(
             barcodeValue = barcodeValue,
             barcodeFormat = barcodeFormat,
             snoozeInterval = snoozeInterval,
+            hapticsController = hapticsController,
             onMissionComplete = { success ->
                 if (success) {
                     hapticsController.performSuccess()

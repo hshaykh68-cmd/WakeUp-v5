@@ -209,7 +209,7 @@ class OEMDetectorImpl @Inject constructor(
     /**
      * Get a detailed device profile for analytics/debugging.
      */
-    fun getDeviceProfile(): DeviceProfile {
+    override fun getDeviceProfile(): DeviceProfile {
         val oem = detectOEM()
         return DeviceProfile(
             oemType = oem,

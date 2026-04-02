@@ -163,6 +163,7 @@ fun AppNavigation(
             alarmId?.let {
                 EditAlarmScreen(
                     alarmId = it,
+                    hapticsController = hapticsController,
                     onNavigateBack = {
                         navController.popBackStack()
                     }
