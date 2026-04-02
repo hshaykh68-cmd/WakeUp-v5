@@ -66,7 +66,8 @@ fun MainScreen(
     onNavigateToCreateAlarm: () -> Unit,
     onNavigateToEditAlarm: (String) -> Unit,
     onNavigateToPremium: () -> Unit,
-    onNavigateToSleepSounds: () -> Unit
+    onNavigateToSleepSounds: () -> Unit,
+    onNavigateToOEMSetup: () -> Unit = {}
 ) {
     val mainViewModel = hiltViewModel<MainViewModel>()
     val adMobManager = mainViewModel.adMobManager
@@ -117,7 +118,8 @@ fun MainScreen(
                     onNavigateToAlarms = {
                         navController.navigate(Screen.Alarms.route)
                     },
-                    onNavigateToSleepSounds = onNavigateToSleepSounds
+                    onNavigateToSleepSounds = onNavigateToSleepSounds,
+                    onNavigateToOEMSetup = onNavigateToOEMSetup
                 )
             }
             composable(Screen.Alarms.route) {

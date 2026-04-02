@@ -14,7 +14,6 @@ import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.action.ActionCallback
-import androidx.glance.appwidget.action.actionParametersOf
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
@@ -149,9 +148,9 @@ private fun AlarmWidgetWithAlarm(alarm: Alarm) {
                     .cornerRadius(16.dp)
                     .clickable(
                         actionRunCallback<ToggleAlarmAction>(
-                            parameters = actionParametersOf(
-                                ToggleAlarmAction.ALARM_ID_KEY to alarm.id
-                            )
+                            ActionParameters.Builder()
+                                .putString(ToggleAlarmAction.ALARM_ID_KEY, alarm.id)
+                                .build()
                         )
                     )
                     .padding(horizontal = 16.dp, vertical = 6.dp),

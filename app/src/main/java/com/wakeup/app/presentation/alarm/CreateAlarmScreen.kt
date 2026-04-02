@@ -70,7 +70,9 @@ import androidx.compose.material3.rememberTimePickerState
 import com.wakeup.app.presentation.components.IOSTimePicker
 import java.time.DayOfWeek
 
-@OptIn(ExperimentalMaterial3Api::class)
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun CreateAlarmScreen(
     viewModel: CreateAlarmViewModel = hiltViewModel(),

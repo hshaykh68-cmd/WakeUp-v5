@@ -32,6 +32,9 @@ import com.wakeup.app.R
 import com.wakeup.app.core.theme.WakeUpColors
 import kotlinx.coroutines.launch
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun VideoOnboardingScreen(
     onComplete: () -> Unit,

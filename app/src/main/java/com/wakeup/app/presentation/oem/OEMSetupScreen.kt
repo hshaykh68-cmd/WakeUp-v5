@@ -62,7 +62,9 @@ import com.wakeup.app.core.oem.OEMType
 import com.wakeup.app.core.oem.SetupStep
 import com.wakeup.app.core.theme.WakeUpColors
 
-@OptIn(ExperimentalMaterial3Api::class)
+import androidx.compose.animation.ExperimentalAnimationApi
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun OEMSetupScreen(
     viewModel: OEMSetupViewModel = hiltViewModel(),

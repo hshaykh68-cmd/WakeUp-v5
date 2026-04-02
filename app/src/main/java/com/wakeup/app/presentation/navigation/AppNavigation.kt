@@ -144,7 +144,8 @@ fun AppNavigation(
                 },
                 onNavigateToSleepSounds = {
                     navController.navigate(Screen.SleepSounds.route)
-                }
+                },
+                onNavigateToOEMSetup = {}
             )
         }
 

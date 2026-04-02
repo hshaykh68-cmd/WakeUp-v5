@@ -189,7 +189,8 @@ fun SleepSoundsScreen(
             }
 
             // Timer Display
-            if (uiState.remainingTimeMillis != null && uiState.remainingTimeMillis > 0) {
+            val remainingTime = uiState.remainingTimeMillis
+            if (remainingTime != null && remainingTime > 0) {
                 Text(
                     text = viewModel.formatRemainingTime(),
                     style = MaterialTheme.typography.titleLarge,
@@ -744,8 +745,8 @@ private fun FloatingParticles() {
                         )
                         .align(
                             Alignment(
-                                (offsetX * 2 - 1).coerceIn(-1f, 1f),
-                                (offsetY * 2 - 1).coerceIn(-1f, 1f)
+                                horizontalBias = (offsetX * 2 - 1).coerceIn(-1f, 1f),
+                                verticalBias = (offsetY * 2 - 1).coerceIn(-1f, 1f)
                             )
                         )
                 )
@@ -824,7 +825,7 @@ private fun BatteryOptimizationCard(
 }
 
 private fun showBatteryOptimizationDialog(context: Context, activity: Activity) {
-    AlertDialog.Builder(activity)
+    androidx.appcompat.app.AlertDialog.Builder(activity)
         .setTitle("Battery Optimization")
         .setMessage(
             "To ensure sleep sounds continue playing reliably throughout the night, " +

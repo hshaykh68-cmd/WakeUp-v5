@@ -237,7 +237,7 @@ class SmartWakeService : Service() {
     }
 
     private fun isActive(): Boolean {
-        return isMonitoring && this::serviceScope.isInitialized && serviceScope.isActive
+        return isMonitoring && runCatching { serviceScope.isActive }.getOrDefault(false)
     }
 
     private fun createNotificationChannel() {
