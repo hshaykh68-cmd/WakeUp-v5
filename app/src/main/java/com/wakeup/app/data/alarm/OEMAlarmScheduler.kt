@@ -94,9 +94,9 @@ class OEMAlarmScheduler @Inject constructor(
         // Schedule a backup alarm 2 minutes later as safety net
         val backupAlarmId = alarm.pendingIntentId + 100000
         val backupIntent = Intent(context, AlarmReceiver::class.java).apply {
-            action = AlarmReceiver.ACTION_ALARM_TRIGGERED
+            action = ACTION_ALARM_TRIGGERED
             putExtra(AlarmReceiver.EXTRA_ALARM_ID, alarm.id)
-            putExtra(AlarmReceiver.EXTRA_IS_BACKUP_ALARM, true)
+            putExtra(EXTRA_IS_BACKUP_ALARM, true)
         }
         
         val backupPendingIntent = PendingIntent.getBroadcast(
@@ -191,9 +191,9 @@ class OEMAlarmScheduler @Inject constructor(
         // Schedule inexact backup alarm
         val backupAlarmId = alarm.pendingIntentId + 200000
         val backupIntent = Intent(context, AlarmReceiver::class.java).apply {
-            action = AlarmReceiver.ACTION_ALARM_TRIGGERED
-            putExtra(AlarmReceiver.EXTRA_ALARM_ID, alarm.id)
-            putExtra(AlarmReceiver.EXTRA_IS_BACKUP_ALARM, true)
+            action = ACTION_ALARM_TRIGGERED
+            putExtra(EXTRA_ALARM_ID, alarm.id)
+            putExtra(EXTRA_IS_BACKUP_ALARM, true)
         }
         
         val backupPendingIntent = PendingIntent.getBroadcast(
@@ -250,7 +250,7 @@ class OEMAlarmScheduler @Inject constructor(
      */
     fun cancelOEMAlarm(alarm: Alarm) {
         // Cancel primary
-        standardScheduler.cancel(alarm)
+        standardScheduler.cancel(alarm.id)
         
         // Cancel backup alarms
         val backupIds = listOf(
@@ -324,7 +324,7 @@ class OEMAlarmScheduler @Inject constructor(
     fun scheduleHealthCheck(): SchedulingResult {
         val healthCheckId = 999999
         val intent = Intent(context, AlarmReceiver::class.java).apply {
-            action = AlarmReceiver.ACTION_HEALTH_CHECK
+            action = ACTION_HEALTH_CHECK
         }
         
         val pendingIntent = PendingIntent.getBroadcast(
@@ -370,4 +370,5 @@ class OEMAlarmScheduler @Inject constructor(
 
 // Extension constant for AlarmReceiver
 const val ACTION_HEALTH_CHECK = "com.wakeup.app.ACTION_HEALTH_CHECK"
+const val ACTION_ALARM_TRIGGERED = "com.wakeup.app.ACTION_ALARM_TRIGGERED"
 const val EXTRA_IS_BACKUP_ALARM = "is_backup_alarm"
