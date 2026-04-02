@@ -188,6 +188,7 @@ private fun OEMSetupContent(
     onGetDeepLink: (SetupStep) -> android.content.Intent?,
     onSetupComplete: () -> Unit
 ) {
+    val context = LocalContext.current
     if (oemConfiguration == null || deviceProfile == null) return
 
     val steps = oemConfiguration.setupSteps

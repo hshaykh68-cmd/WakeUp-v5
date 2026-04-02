@@ -744,7 +744,7 @@ fun CreateAlarmScreen(
             if (showBarcodeScanner) {
                 val onDismissBarcode = remember { { showBarcodeScanner = false } }
                 val onBarcodeScanned = remember {
-                    { value: String, format: String ->
+                    { value: String, format: Int ->
                         scannedBarcodeValue = value
                         scannedBarcodeFormat = format
                         showBarcodeScanner = false

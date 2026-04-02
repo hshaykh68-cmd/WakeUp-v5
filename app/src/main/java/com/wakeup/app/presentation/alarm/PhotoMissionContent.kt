@@ -59,6 +59,8 @@ import com.wakeup.app.core.camera.CameraXController
 import com.wakeup.app.core.theme.WakeUpColors
 import com.wakeup.app.core.util.PhotoSimilarity
 import com.wakeup.app.data.mission.MissionData
+import com.wakeup.app.data.mission.photoReferencePath
+import com.wakeup.app.data.mission.photoReferenceHash
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

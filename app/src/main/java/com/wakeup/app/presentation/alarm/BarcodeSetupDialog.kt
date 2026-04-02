@@ -133,7 +133,12 @@ fun BarcodeSetupDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        androidx.compose.material.icons.Icons.Default.CheckCircle
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = "Success",
+                        tint = WakeUpColors.iosGreen,
+                        modifier = Modifier.size(48.dp)
+                    )
                         Text(
                             text = "Barcode captured!",
                             color = Color.White,

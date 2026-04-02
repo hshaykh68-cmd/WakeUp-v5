@@ -85,9 +85,9 @@ fun StepCounterMissionContent(
                 // Haptic feedback every 10 steps
                 if (stepDetector.shouldTriggerHaptic()) {
                     hapticsController.performLightImpact()
-coroutineScope.
+
                     // Pulse animation on milestone
-                    launch {
+                    coroutineScope.launch {
                         milestoneScale.animateTo(
                             targetValue = 1.2f,
                             animationSpec = spring(

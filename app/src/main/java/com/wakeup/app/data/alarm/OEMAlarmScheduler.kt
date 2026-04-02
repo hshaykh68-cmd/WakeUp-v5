@@ -192,7 +192,7 @@ class OEMAlarmScheduler @Inject constructor(
         val backupAlarmId = alarm.pendingIntentId + 200000
         val backupIntent = Intent(context, AlarmReceiver::class.java).apply {
             action = ACTION_ALARM_TRIGGERED
-            putExtra(EXTRA_ALARM_ID, alarm.id)
+            putExtra(AlarmReceiver.EXTRA_ALARM_ID, alarm.id)
             putExtra(EXTRA_IS_BACKUP_ALARM, true)
         }
         
@@ -239,7 +239,6 @@ class OEMAlarmScheduler @Inject constructor(
 
         // Register SCREEN_ON receiver for this specific alarm
         OEMScreenOnReceiver.registerAlarm(context, alarm)
-
         return dualResult.copy(
             strategyUsed = SchedulingStrategy.SCREEN_ON_WAKE
         )

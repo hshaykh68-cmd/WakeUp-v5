@@ -153,5 +153,6 @@ enum class SystemSetting {
     STAMINA_MODE,
     ADAPTIVE_BATTERY,
     HIGH_POWER_USAGE,
-    QUICK_FREEZE
+    QUICK_FREEZE,
+    UNMONITORED_APPS
 }

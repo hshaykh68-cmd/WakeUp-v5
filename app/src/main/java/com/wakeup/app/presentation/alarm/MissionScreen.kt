@@ -193,8 +193,6 @@ fun MissionScreen(
                     )
                     MissionType.BARCODE -> BarcodeMissionContent(
                         missionData = missionData,
-                        barcodeValue = barcodeValue,
-                        barcodeFormat = barcodeFormat,
                         onMissionComplete = { success ->
                             if (success) {
                                 hapticsController.performSuccess()
@@ -207,8 +205,6 @@ fun MissionScreen(
                     )
                     MissionType.PHOTO -> PhotoMissionContent(
                         missionData = missionData,
-                        photoReferencePath = photoReferencePath,
-                        photoReferenceHash = photoReferenceHash,
                         onMissionComplete = { success ->
                             if (success) {
                                 hapticsController.performSuccess()

@@ -10,7 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.wakeup.app.R
-import com.wakeup.app.presentation.MainActivity
+import com.wakeup.app.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
@@ -136,7 +136,7 @@ class OEMForegroundService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Alarm protection active")
             .setContentText(alarmTimeText)
-            .setSmallIcon(R.drawable.ic_notification_alarm) // Assume this exists
+            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm) // Assume this exists
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setContentIntent(pendingIntent)

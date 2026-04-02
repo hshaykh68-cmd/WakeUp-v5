@@ -48,7 +48,12 @@ import com.google.mlkit.vision.common.InputImage
 import com.wakeup.app.core.camera.CameraXController
 import com.wakeup.app.core.theme.WakeUpColors
 import com.wakeup.app.data.mission.MissionData
+import com.wakeup.app.data.mission.barcodeValue
+import com.wakeup.app.data.mission.barcodeFormat
+import com.wakeup.app.data.mission.photoReferencePath
+import com.wakeup.app.data.mission.photoReferenceHash
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Composable for Barcode scanning mission.

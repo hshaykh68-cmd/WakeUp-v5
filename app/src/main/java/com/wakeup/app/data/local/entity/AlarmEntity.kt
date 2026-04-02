@@ -91,7 +91,6 @@ data class AlarmEntity(
                 barcodeFormat = alarm.barcodeFormat,
                 smartWakeEnabled = alarm.smartWakeEnabled,
                 smartWakeWindowMinutes = alarm.smartWakeWindowMinutes,
-                pendingIntentId = alarm.pendingIntentId,
                 createdAt = alarm.createdAt
             )
         }

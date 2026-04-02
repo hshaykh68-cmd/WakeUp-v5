@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.wakeup.app.R
 import com.wakeup.app.core.util.SleepPhase
 import com.wakeup.app.core.util.SleepPhaseDetector
-import com.wakeup.app.presentation.MainActivity
+import com.wakeup.app.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -237,7 +237,7 @@ class SmartWakeService : Service() {
     }
 
     private fun isActive(): Boolean {
-        return isMonitoring || !serviceScope.isActive
+        return isMonitoring || serviceScope.isActive
     }
 
     private fun createNotificationChannel() {
@@ -265,7 +265,7 @@ class SmartWakeService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Smart Wake Active")
             .setContentText(contentText)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(android.R.drawable.ic_dialog_alert)
             .setContentIntent(pendingIntent)
             .setOngoing(true)
             .setSilent(true)

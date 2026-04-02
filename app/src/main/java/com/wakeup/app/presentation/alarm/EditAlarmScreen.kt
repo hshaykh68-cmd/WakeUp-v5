@@ -197,6 +197,7 @@ private fun EditAlarmContent(
                 hour = hour,
                 minute = minute,
                 is24Hour = false,
+                hapticsController = hapticsController,
                 onTimeChange = { newHour, newMinute ->
                     hour = newHour
                     minute = newMinute

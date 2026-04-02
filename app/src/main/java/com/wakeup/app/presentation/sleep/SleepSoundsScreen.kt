@@ -81,7 +81,7 @@ import com.wakeup.app.presentation.sleep.SleepSoundsUiState
 
 import android.app.Activity
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
+import androidx.compose.material3.AlertDialog
 import com.wakeup.app.core.util.BatteryOptimizationHelper
 
 import androidx.core.view.WindowCompat
@@ -892,7 +892,7 @@ private fun PremiumDialog(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Star,
+                        imageVector = Icons.Default.EmojiEvents,
                         contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.size(32.dp)

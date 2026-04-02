@@ -222,7 +222,7 @@ internal fun ShakeMissionContent(
                     colors = ButtonDefaults.buttonColors(containerColor = WakeUpColors.iosBlue)
                 ) {
                     Icon(Icons.Default.Refresh, null)
-                    Spacer(modifier = androidx.compose.foundation.layout.width(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text("Try Again")
                 }
             }

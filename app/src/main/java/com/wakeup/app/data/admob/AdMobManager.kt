@@ -54,11 +54,12 @@ class AdMobManager @Inject constructor(
         initialize()
         val adUnitId = if (isTest) TEST_BANNER_AD_UNIT_ID else PROD_BANNER_AD_UNIT_ID
         
-        return AdView(context).apply {
+        val adView = AdView(context).apply {
             setAdSize(AdSize.BANNER)
-            adUnitId = adUnitId
+            this.adUnitId = adUnitId
             loadAd(AdRequest.Builder().build())
         }
+        return adView
     }
     
     /**
@@ -69,11 +70,12 @@ class AdMobManager @Inject constructor(
         initialize()
         val adUnitId = if (isTest) TEST_BANNER_AD_UNIT_ID else PROD_BANNER_AD_UNIT_ID
         
-        return AdView(context).apply {
+        val adView = AdView(context).apply {
             setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context, context.resources.displayMetrics.widthPixels))
-            adUnitId = adUnitId
+            this.adUnitId = adUnitId
             loadAd(AdRequest.Builder().build())
         }
+        return adView
     }
     
     /**
